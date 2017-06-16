@@ -26,6 +26,8 @@ var ready4Apcalc = function() {
 
 	$("#input_now_level").select();
 
+	$("input").on("click", function(){ $(this).select(); });
+
 	console.log("[%s] end.", fnNm);
 }
 readyArray.push(ready4Apcalc);
@@ -79,14 +81,12 @@ var apcalculator = function(nowlv, start) {
 	let starttime = start.time;
 
 	let sKey = "lv" + zeroPadding(nowlv, 3);
-	// console.log("[%s][%s]", sKey, M001_LEVEL[sKey]);
 	let maxap;
 	if (M001_LEVEL[sKey]) {
 		maxap = M001_LEVEL[sKey].maxap;
 	} else {
 		maxap = 0;
 	}
-	// console.log("[%s]", maxap);
 
     let diffap = maxap - startap;
     let addMin4full = diffap * AP_KAIFUKU_MIN;
@@ -102,9 +102,8 @@ var apcalculator = function(nowlv, start) {
     let nowtime = new Date();
 
 	let difftime = miniuteDistance(starttime, nowtime);
-	console.log("[%s]", difftime);
 
-	let nowap = startap + parseInt(difftime / AP_KAIFUKU_MIN);
+	let nowap = parseInt(startap) + parseInt(difftime / AP_KAIFUKU_MIN);
 
 	let dummyResult = {
 		start : { lv:nowlv, ap:startap, time:toLocaleString(starttime) },

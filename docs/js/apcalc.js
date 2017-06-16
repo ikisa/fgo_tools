@@ -128,23 +128,15 @@ var apcalculator = function(nowlv, start) {
 var showResult = function(result) {
 	$("#apcalc-result .row").empty();
 
-	let baseCardAp = "<div class=\"medium-3 column\"><div class=\"card\"><div class=\"card-divider\">％title％</div><div class=\"card-section\"><p class=\"stat\">％value％</p></div></div></div>";
-	let baseOffsetAp = "<div class=\"medium-offset-3 column\"></div>";
-
 	let baseCardTime = "<div class=\"medium-3 column\"><div class=\"card\"><div class=\"card-divider\">％title％</div><div class=\"card-section\"><p>％value％</p></div></div></div>";
 	let baseOffsetTime = "<div class=\"medium-offset-3 column\"></div>";
 
-	$("#apcalc-result .row:eq(0)")
-		.append($(baseCardTime.replace(/％title％/, "Start Time").replace(/％value％/, result.start.time)))
-		.append($(baseCardTime.replace(/％title％/, "Now Time").replace(/％value％/, result.now.time)))
-		.append($(baseCardTime.replace(/％title％/, "Full Time").replace(/％value％/, result.full.time + "<br />(after " + result.full.after.hours + "h " + result.full.after.minutes + "m)")))
+	let idx = 0;
+	$("#apcalc-result .row:eq(" + idx + ")")
+		.append($(baseCardTime.replace(/％title％/, "Full").replace(/％value％/, result.full.time + "<br />(AP : " + result.full.ap + ", after " + result.full.after.hours + "h " + result.full.after.minutes + "m)")))
+		.append($(baseCardTime.replace(/％title％/, "Now").replace(/％value％/, result.now.time + "<br />(AP : " + result.now.ap + ")")))
+		.append($(baseCardTime.replace(/％title％/, "Start").replace(/％value％/, result.start.time + "<br />(AP : " + result.start.ap + ")")))
 		.append($(baseOffsetTime));
-
-	$("#apcalc-result .row:eq(1)")
-		.append($(baseCardAp.replace(/％title％/, "Start Ap").replace(/％value％/, result.start.ap)))
-		.append($(baseCardAp.replace(/％title％/, "Now Ap").replace(/％value％/, result.now.ap)))
-		.append($(baseCardAp.replace(/％title％/, "Full Ap").replace(/％value％/, result.full.ap)))
-		.append($(baseOffsetAp));
 
 }
 

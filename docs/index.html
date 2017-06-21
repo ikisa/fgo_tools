@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="css/vender/foundation/foundation.min.css">
     <link rel="stylesheet" href="css/app.css">
     <style type="text/css" media="screen">
-    .switch-paddle {
-      width: 7em;
-    }
-
 
     </style>
 
@@ -39,14 +35,22 @@
       	<form>
 					<div class="input-group">
 					  <span class="input-group-label">現在レベル</span>
-					  <input class="input-group-field" id="input_now_level" type="number">
-					</div>
-					<div class="input-group">
+					  <input class="input-group-field" id="apcalc-input_now_level" type="number">
 					  <span class="input-group-label">現在AP</span>
-					  <input class="input-group-field" id="input_now_ap" type="number">
+					  <input class="input-group-field" id="apcalc-input_now_ap" type="number">
 					</div>
 				  <div>
             <a href="#" class="button" id="apcalc-calc">Calc</a>
+            <div id="apcalc-switch_save_area">
+              <div class="switch">
+                <input class="switch-input" id="apcalc-switch_save" type="checkbox">
+                <label class="switch-paddle" for="apcalc-switch_save">
+                  <span class="show-for-sr">Do you Save?</span>
+                  <span class="switch-active" aria-hidden="true">Save</span>
+                  <span class="switch-inactive" aria-hidden="true">No Save</span>
+                </label>
+              </div>
+            </div>
 				  </div>
 
       	</form>

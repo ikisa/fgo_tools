@@ -28,7 +28,7 @@ var ready4Apcalc = function() {
 
 	initApc();
 
-	$("#apcalc-input_now_level").select();
+	$("#apcalc-input_now_ap").select();
 
 	$("input").on("click", function(){ $(this).select(); });
 

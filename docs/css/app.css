@@ -1,2 +1,13 @@
 @charset "utf-8";
 
+/* apcalc  */
+#apcalc-switch_save_area {
+  display: inline-block;
+}
+#apcalc-switch_save_area .switch-paddle {
+  width: 8.0em
+}
+#apcalc-switch_save_area input:checked~.switch-paddle:after {
+  left: 5.25rem;
+}
+

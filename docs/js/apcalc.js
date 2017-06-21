@@ -90,9 +90,9 @@ var apcalculator = function(nowlv, start) {
     let diffap = maxap - startap;
     let addMin4full = diffap * AP_KAIFUKU_MIN;
 
-	let fulltime = new Date();
+	let fulltime = new Date(starttime.getTime());
 	console.log(starttime)
-    fulltime.setMinutes(starttime.getMinutes() + addMin4full);
+    fulltime.setMinutes(fulltime.getMinutes() + addMin4full);
 
     let aftperiod = {
     	hours : parseInt(addMin4full / 60),

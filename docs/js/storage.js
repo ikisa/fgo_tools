@@ -2,24 +2,53 @@
 var STORAGE_NAMESPACE = {};
 STORAGE_NAMESPACE.APCALC = "apcalc";
 
+var enableStorage = function() {
+    try {
+        if (typeof localStorage === 'undefined') {
+            return false;
+        } else if (window.localStorage) {
+            //detect IE10 and private mode
+        }
+    } catch(e) {
+        return false;
+    }
+    return true;
+}
+
 
 var setDataToStorage = function(namespace, data) {
+	if (!enableStorage()) return;
 	storage.setItem(namespace, JSON.stringify(data));
 }
 
 var getDataToStorage = function(namespace) {
-	return JSON.parse(storage.getItem(namespace));
+	if (!enableStorage()) return undefined;
+	let result;
+	try {
+		result = JSON.parse(storage.getItem(namespace))	
+	} catch(e) {
+		return undefined;
+	}
+	return result;
 }
 
 var setItemToStorage = function(namespace, key, val) {
+	if (!enableStorage()) return;
 	let data = getDataToStorage(namespace);
 	data[key] = val;
 	setDataToStorage(namespace, data);
 }
 
 var getItemToStorage = function(namespace, key) {
-	let data = getDataToStorage(namespace);
-	return data[key];
+	if (!enableStorage()) return undefined;
+	let result = undefined;
+	try {
+		let data = getDataToStorage(namespace);
+		result = data[key];
+	} catch(e) {
+		return undefined;
+	}
+	return result;
 }
 
 

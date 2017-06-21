@@ -2,14 +2,18 @@ var ready4Apcalc = function() {
 	let fnNm = "Ap";
 	console.log("[%s] start.", fnNm);
 
+	if (!enableStorage()) {
+		$("#apcalc-switch_save_area").hide();
+	}
+
     // event binding
 	$("#apcalc-calc").on("click", function(){
 
-		let nowap = $("#input_now_ap").val();
+		let nowap = $("#apcalc-input_now_ap").val();
 	    if (!$.isNumeric(nowap)) { nowap = 0; }
 	    else if (nowap < 0) { nowap = 0; }
 
-		let nowlv = $("#input_now_level").val();
+		let nowlv = $("#apcalc-input_now_level").val();
 	    if (!$.isNumeric(nowlv)) { nowlv = 0; }
 	    else if (nowlv < 0) { nowlv = 0; }
 
@@ -24,7 +28,7 @@ var ready4Apcalc = function() {
 
 	initApc();
 
-	$("#input_now_level").select();
+	$("#apcalc-input_now_level").select();
 
 	$("input").on("click", function(){ $(this).select(); });
 
@@ -38,10 +42,7 @@ var initApc = function() {
 	let startlv = 0;
 	let startap = 0;
 	let starttime = new Date();
-
-	// let startlv = 134;
-	// let startap = 32;
-	// let starttime = new Date("2017/06/16 23:06:12");
+	let flg = false;
 
 	// Storageから取り出す。
 	let data = getDataToStorage(STORAGE_NAMESPACE.APCALC);
@@ -49,18 +50,16 @@ var initApc = function() {
 		if (data.start) {
 			startlv = data.start.lv;
 			startap = data.start.ap;
-			starttime = data.start.time;
+			starttime = new Date(data.start.time);
+			flg = data.flg;
 		}
 	}
 
-
-
 	let param = { ap : startap, time : starttime };
 
-
-
-	$("#input_now_level").val(startlv);
-	$("#input_now_ap").val(startap);
+	$("#apcalc-input_now_level").val(startlv);
+	$("#apcalc-input_now_ap").val(startap);
+	$("#apcalc-switch_save").prop({"checked": flg});
 
 	let result = apcalculator(startlv, param);
 	showResult(result);
@@ -92,6 +91,7 @@ var apcalculator = function(nowlv, start) {
     let addMin4full = diffap * AP_KAIFUKU_MIN;
 
 	let fulltime = new Date();
+	console.log(starttime)
     fulltime.setMinutes(starttime.getMinutes() + addMin4full);
 
     let aftperiod = {
@@ -105,18 +105,22 @@ var apcalculator = function(nowlv, start) {
 
 	let nowap = parseInt(startap) + parseInt(difftime / AP_KAIFUKU_MIN);
 
-	let dummyResult = {
+	let result = {
+		flg   : $("#apcalc-switch_save").prop("checked"),
 		start : { lv:nowlv, ap:startap, time:toLocaleString(starttime) },
 		now   : { ap:nowap, time:toLocaleString(nowtime) },
 		full  : { ap:maxap, time:toLocaleString(fulltime), after: aftperiod },
 	};
 
+	if ($("#apcalc-switch_save").prop("checked")) {
+		setDataToStorage(STORAGE_NAMESPACE.APCALC, result);
+	} else {
+		setDataToStorage(STORAGE_NAMESPACE.APCALC, undefined);
+	}
+
 	console.log("%s end.", fnNm);
-	return dummyResult;
+	return result;
 }
-
-
-
 
 /**
  * show apcalc result
@@ -138,8 +142,3 @@ var showResult = function(result) {
 		.append($(baseOffsetTime));
 
 }
-
-
-
-
-

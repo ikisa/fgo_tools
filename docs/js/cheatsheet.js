@@ -32,6 +32,7 @@ function setDetail() {
 	let dataArray = calcSummary(rarity, nowlv, targetlv);
 
 	dispSummary(dataArray);
+	dispLevelList(dataArray);
 }
 
 function calcSummary(rarity, nowLv, targetLv) {
@@ -128,29 +129,33 @@ function calcSummary(rarity, nowLv, targetLv) {
 
 function dispSummary(dataInfo) {
 
-	let $group = $("#cheatsheet-summary-cardgroup");
+	let $target = $("#cheatsheet-summary-cardgroup");
 
 	// 空にする
-	$group.empty();
+	$target.empty();
+
+	let tane4 = MASTERDATA.tane[4];
 
 	// 以下、確認のためにとりあえず
-	$group.append($(dispSummaryCard("聖杯", dataInfo.seihai)));
+	$target.append($(dispSummaryCard("聖杯", dataInfo.seihai)));
 
 	let sum = (dataInfo.tenrin[0].qp + dataInfo.skill[1].qp + dataInfo.skill[2].qp + dataInfo.skill[3].qp);
-	$group.append($(dispSummaryCard("必要QP", sum.toLocaleString())));
+	$target.append($(dispSummaryCard("必要QP", sum.toLocaleString())));
 
 	let item = dataInfo.tenrin[0];
-	$group.append($(dispSummaryCard("経験値(Lv" + item.maxlv + ")", item.exp.toLocaleString())));
-	$group.append($(dispSummaryCard("QP(Lv" + item.maxlv + ")", item.qp.toLocaleString())));
+	$target.append($(dispSummaryCard("経験値(Lv" + item.maxlv + ")", item.exp.toLocaleString())));
+	$target.append($(dispSummaryCard("叡智の猛火(Lv" + item.maxlv + ")", parseInt(item.exp / tane4).toLocaleString())));
+	$target.append($(dispSummaryCard("QP(Lv" + item.maxlv + ")", item.qp.toLocaleString())));
 
 	item = dataInfo.sairin[0];
-	$group.append($(dispSummaryCard("経験値(Lv" + item.maxlv + ")", item.exp.toLocaleString())));
-	$group.append($(dispSummaryCard("QP(Lv" + item.maxlv + ")", item.qp.toLocaleString())));
+	$target.append($(dispSummaryCard("経験値(Lv" + item.maxlv + ")", item.exp.toLocaleString())));
+	$target.append($(dispSummaryCard("叡智の猛火(Lv" + item.maxlv + ")", parseInt(item.exp / tane4).toLocaleString())));
+	$target.append($(dispSummaryCard("QP(Lv" + item.maxlv + ")", item.qp.toLocaleString())));
 
 	item = dataInfo.skill;
-	$group.append($(dispSummaryCard("QP(Skill 1)", item[1].qp.toLocaleString())));
-	$group.append($(dispSummaryCard("QP(Skill 2)", item[2].qp.toLocaleString())));
-	$group.append($(dispSummaryCard("QP(Skill 3)", item[3].qp.toLocaleString())));
+	$target.append($(dispSummaryCard("QP(Skill 1)", item[1].qp.toLocaleString())));
+	$target.append($(dispSummaryCard("QP(Skill 2)", item[2].qp.toLocaleString())));
+	$target.append($(dispSummaryCard("QP(Skill 3)", item[3].qp.toLocaleString())));
 
 }
 
@@ -176,9 +181,44 @@ function dispSummaryCard(title, value) {
 }
 
 
+function dispLevelList(dataInfo) {
 
+	let $target = $("#cheatsheet-lvinfolist tbody");
+	$target.empty();
 
+	dataInfo.sairin.reverse().forEach(function(item, index, array){
+		$target.append($(dispLevelListLine({ lv:item.maxlv, exp:item.exp })));
+	});
 
+	dataInfo.tenrin.reverse().forEach(function(item, index, array){
+		$target.append($(dispLevelListLine({ lv:item.maxlv, exp:item.exp })));
+	});
+}
+
+const templateLevelListLine = 
+	"<tr>" +
+	"  <td>%line-level%</td>" +
+	"  <td>%line-tane-ok%</td>" +
+	"  <td>%line-tane-ng%</td>" +
+	"  <td>%line-exp%</td>" +
+	"  <td>%line-piece%</td>" +
+	"  <td>%line-monu%</td>" +
+	"  <td>%line-sei%</td>" +
+	"</tr>" +
+	"";
+
+function dispLevelListLine(props) {
+	let newLine = templateLevelListLine;
+	newLine = newLine.replace(/%line-level%/g, props.lv);
+	newLine = newLine.replace(/%line-tane-ok%/g, parseInt(props.exp / MASTERDATA.tane[4]).toLocaleString());
+	newLine = newLine.replace(/%line-tane-ng%/g, parseInt(props.exp / MASTERDATA.taneng[4]).toLocaleString());
+	newLine = newLine.replace(/%line-exp%/g, props.exp.toLocaleString());
+	newLine = newLine.replace(/%line-piece%/g, "-");
+	newLine = newLine.replace(/%line-monu%/g, "-");
+	newLine = newLine.replace(/%line-sei%/g, "-");
+
+	return newLine;
+}
 
 
 
@@ -215,6 +255,9 @@ var MASTERDATA = {
 	],
 	tane: {
 		4: 32400,
+	},
+	taneng: {
+		4: 27000,
 	},
 
 

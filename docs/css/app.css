@@ -11,3 +11,22 @@
   left: 5.25rem;
 }
 
+/* svlist */
+#svlist-listarea {
+	font-size: 0.8em;
+}
+#svlist-listarea thead td,
+#svlist-listarea thead th,
+#svlist-listarea tfoot td,
+#svlist-listarea tfoot th {
+	padding: .35rem .5rem;
+}
+#svlist-listarea tbody td,
+#svlist-listarea tbody th {
+	padding: .35rem .5rem;
+}
+
+#cheatsheet th,
+#cheatsheet td {
+	text-align: right;
+}

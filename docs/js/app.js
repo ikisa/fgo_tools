@@ -7,6 +7,7 @@ $(function(){
     console.log("start.");
 
     // 初期表示
+    $("#apcalc").addClass("welcomepage");
     $(".container.welcomepage").removeClass("hide");
 
 

@@ -15,7 +15,7 @@ var toLocaleString = function(date) {
     return [y, m, d].join('/') + ' ' + [h, mi].join(':');
 }
 
-function zeroPadding(num, length){
+var zeroPadding = function(num, length){
     return ("0000000000" + num).slice(-length);
 }
 

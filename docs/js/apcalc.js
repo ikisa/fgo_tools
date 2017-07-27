@@ -1,5 +1,5 @@
 var ready4Apcalc = function() {
-	let fnNm = "Ap";
+	let fnNm = "ready4Apcalc";
 	console.log("[%s] start.", fnNm);
 
 	if (!enableStorage()) {
@@ -129,16 +129,17 @@ var apcalculator = function(nowlv, start) {
  * @return {[type]}        [description]
  */
 var showResult = function(result) {
-	$("#apcalc-result .row").empty();
+	$("#apcalc-result .grid-x").empty();
 
-	let baseCardTime = "<div class=\"medium-3 column\"><div class=\"card\"><div class=\"card-divider\">％title％</div><div class=\"card-section\"><p>％value％</p></div></div></div>";
-	let baseOffsetTime = "<div class=\"medium-offset-3 column\"></div>";
+	let baseCardTime = "<div class=\"medium-3 cell\"><div class=\"card\"><div class=\"card-divider\">％title％</div><div class=\"card-section\"><p>％value％</p></div></div></div>";
+	// let baseOffsetTime = "<div class=\"medium-offset-3 cell\"></div>";
 
 	let idx = 0;
-	$("#apcalc-result .row:eq(" + idx + ")")
+	$("#apcalc-result .grid-x:eq(" + idx + ")")
 		.append($(baseCardTime.replace(/％title％/, "Full").replace(/％value％/, result.full.time + "<br />(AP : " + result.full.ap + ", after " + result.full.after.hours + "h " + result.full.after.minutes + "m)")))
 		.append($(baseCardTime.replace(/％title％/, "Now").replace(/％value％/, result.now.time + "<br />(AP : " + result.now.ap + ")")))
 		.append($(baseCardTime.replace(/％title％/, "Start").replace(/％value％/, result.start.time + "<br />(AP : " + result.start.ap + ")")))
-		.append($(baseOffsetTime));
+		// .append($(baseOffsetTime))
+		;
 
 }

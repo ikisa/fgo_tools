@@ -18,19 +18,21 @@
       <div class="title-bar-title">Menu</div>
     </div>
 
+    <!-- menu -->
     <div class="top-bar" id="example-menu">
       <div class="top-bar-left">
         <ul class="dropdown menu" data-dropdown-menu id="menu-group">
           <li class="menu-text">Fgo Tools</li>
           <li><a href="#" data-menuid="about">About</a></li>
           <li><a href="#" data-menuid="apcalc">Ap-Calc</a></li>
-          <li><a href="#" data-menuid="svlist">Sv-List</a></li>
+          <li><a href="#" data-menuid="cheatsheet">Cheatsheet</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="row container hide" id="about">
-      <div class="large-12 columns">
+    <!-- about -->
+    <div class="grid-x container hide" id="about">
+      <div class="large-12 cell">
         <h2>概要と免責</h2>
         <div class="callout">
           <h5>免責</h5>
@@ -64,8 +66,9 @@
       </div>
     </div>
 
-    <div class="row container hide welcomepage" id="apcalc">
-      <div class="large-12 columns">
+    <!-- apcalc -->
+    <div class="grid-x container hide" id="apcalc">
+      <div class="large-12 cell">
       	<h2>AP 計算</h2>
 
       	<form>
@@ -94,27 +97,161 @@
       	<hr />
 
         <div id="apcalc-result">
-          <div class="row text-center"></div>
+          <div class="grid-x grid-margin-x text-center"></div>
         </div>
 
       </div>
     </div>
 
-    <div class="row container hide" id="svlist">
-      <div class="large-12 columns">
-      	<h2>Servant List</h2>
+    <!-- svlist -->
+    <div class="grid-x container hide" id="svlist">
+      <div class="large-12 cell">
+        <h2>Servant List</h2>
+        <div class="callout small">
+          <form id="svlist-form">
+            <div class="input-group" style="margin: 0px; padding: 0px;">
+              <input class="small" id="svlist-input_filter" type="text" style="margin: 0px; padding: 0px;" placeholder="filter" />
+            </div>
+          </form>
+        </div>
+        <table class="hover table-scroll svlist" id="svlist-listarea">
+          <thead></thead>
+          <tfoot></tfoot>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- modal -->
+      <div class="reveal" id="svlist-svinfo" data-reveal>
+        <div class="detail"></div>
+
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- cheatsheet -->
+    <div class="grid-x container hide" id="cheatsheet">
+      <div class="large-12 cell">
+        <h2>Cheatsheet</h2>
+        <form>
+          <div class="grid-x">
+            <div class="small-12 medium-6 large-6 cell">
+              <fieldset name="rarity" class="fieldset">
+                  <legend>Rarity</legend>
+                  <input type="radio" name="rarity" value="5" id="rarity_5" checked><label for="rarity_5">５</label>
+                  <input type="radio" name="rarity" value="4" id="rarity_4"><label for="rarity_4">４</label>
+                  <input type="radio" name="rarity" value="3" id="rarity_3"><label for="rarity_3">３</label>
+                  <input type="radio" name="rarity" value="2" id="rarity_2"><label for="rarity_2">２</label>
+                  <input type="radio" name="rarity" value="1" id="rarity_1"><label for="rarity_1">１</label>
+                  <input type="radio" name="rarity" value="0" id="rarity_0"><label for="rarity_0">０</label>
+              </fieldset>
+            </div>
+          </div>
+          <div class="grid-x">
+            <div class="small-4 medium-2 large-2 cell">
+              <div class="input-group">
+                <span class="input-group-label">Now Lv</span>
+                <input class="input-group-field" type="number" name="nowlv" />
+              </div>
+            </div>
+            <div class="small-4 medium-2 large-2 cell" style="visibility: hidden">
+              <div class="input-group">
+                <span class="input-group-label">Target Lv</span>
+                <input class="input-group-field" type="number" name="targetlv" />
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+        <div class="callout">
+          <h5>Summary (from Lv<span id="cheatsheet-nowlv"></span>)</h5>
+          <div class="grid-x small-up-1 medium-up-3 grid-margin-x" id="cheatsheet-summary-cardgroup">
+          </div>
 
 
 
+        </div>
+
+        <div class="callout">
+          <h5>Lv</h5>
+          <table class="hover">
+            <thead>
+              <tr>
+                <th width="5%">Lv</th>
+                <th>叡智の猛火(一致)</th>
+                <th>叡智の猛火(不一致)</th>
+                <th width="15%">経験値pt</th>
+                <th width="15%">ピース</th>
+                <th width="15%">モニュメント</th>
+                <th width="15%">聖杯</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>90</td>
+                <td>377</td>
+                <td>453</td>
+                <td>12,148,500</td>
+                <td>17</td>
+                <td>17</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>100</td>
+                <td>631</td>
+                <td>xxx</td>
+                <td>20,311,500</td>
+                <td>17</td>
+                <td>17</td>
+                <td>5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <h5>Skill</h5>
+          <ul>
+            <li>スキルに関係する情報</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <h5>Status</h5>
+          <ul>
+            <li>ステータスに関係する情報</li>
+          </ul>
+        </div>
 
 
+      </div>
+    </div>
 
-
+    <!-- summerflow -->
+    <div class="grid-x container hide" id="summerflow">
+      <div class="large-12 cell">
+        <h2>Flowchart in summer</h2>
+        <form id="summerflow-form">
+        </form>
 
 
 
       </div>
     </div>
+
 
 
 
@@ -130,6 +267,10 @@
     <script src="js/storage.js"></script>
 
     <script src="js/apcalc.js"></script>
+    <script src="js/svlist.js"></script>
+    <script src="js/cheatsheet.js"></script>
+    <script src="js/flowchart.js"></script>
+
     <script src="js/app.js"></script>
   </body>
 </html>
